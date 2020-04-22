@@ -20,7 +20,7 @@ mp = Mixpanel('269cd4e25e97cc15bdca5b401e429892')
 
 class Analytics(object):
 
-    def __init__(self, label_config_line, collect_analytics=True, project_name='', context=None):
+    def __init__(self, label_config_line, collect_analytics=False, project_name='', context=None):
         self._label_config_line = label_config_line
         self._collect_analytics = collect_analytics
         self._project_name = convert_string_to_hash(project_name)
@@ -77,6 +77,7 @@ class Analytics(object):
         self._project_name = convert_string_to_hash(project_name)
 
     def send(self, event_name, **kwargs):
+        return
         if not self._collect_analytics:
             return
         data = deepcopy(kwargs)

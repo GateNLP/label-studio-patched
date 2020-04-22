@@ -179,16 +179,16 @@ const LSB = function(elid, config, task) {
     task: _convertTask(task),
     interfaces: [
       "basic",
-      "panel", // undo, redo, reset panel
+      //"panel", // undo, redo, reset panel
       "controls", // all control buttons: skip, submit, update
       "submit", // submit button on controls
       "update", // update button  on controls
-      "predictions",
-      "predictions:menu", // right menu with prediction items
-      "completions:menu", // right menu with completion items
-      "completions:add-new",
-      "completions:delete",
-      "side-column", // entity
+      //"predictions",
+      //"predictions:menu", // right menu with prediction items
+      //"completions:menu", // right menu with completion items
+      //"completions:add-new",
+      //"completions:delete",
+      //"side-column", // entity
       "skip"
     ],
 

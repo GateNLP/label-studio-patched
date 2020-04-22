@@ -676,6 +676,20 @@ def str2datetime(timestamp_str):
     return datetime.utcfromtimestamp(ts).strftime('%Y%m%d.%H%M%S')
 
 
+######
+class WvProxyFix(object):
+    def __init__(self, app, number):
+        self.app = app
+        self.number = number
+
+    def __call__(self, environ, start_response):
+        environ["wsgi.url_scheme"] = "https"
+        environ["SERVER_NAME"] = "wv-ann-{:02d}.services.gate.ac.uk".format(self.number)
+        environ["HTTP_HOST"] = "wv-ann-{:02d}.services.gate.ac.uk".format(self.number)
+        environ["SERVER_PORT"] = "443"
+        return self.app(environ, start_response)
+######
+
 def main():
     import threading
     import webbrowser
@@ -685,6 +699,10 @@ def main():
     app.jinja_env.filters['str2datetime'] = str2datetime
 
     input_args = parse_input_args()
+
+    #####
+    app.wsgi_app = WvProxyFix(app.wsgi_app, int(input_args.port) - 9000)
+    #####
 
     # setup logging level
     if input_args.log_level:
