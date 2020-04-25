@@ -667,6 +667,14 @@ def get_data_file(filename):
     directory = request.args.get('d')
     return flask.send_from_directory(directory, filename, as_attachment=True)
 
+@app.route('/please_stop_the_server')
+def shutmedown():
+    func = request.environ.get("werkzeug.server.shutdown")
+    if func is None:
+        return "ERROR: not running with werkzeug"
+    else:
+        func()
+        return "Shutting down"
 
 def str2datetime(timestamp_str):
     try:
